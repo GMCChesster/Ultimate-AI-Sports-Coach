@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ultimate Sports AI Coach | Basketball</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #1a1a1a 0%, #3e1f0a 100%); /* Basketball Orange tint */
+            color: white; 
+            margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; 
+        }
+        .app-container { 
+            width: 92%; max-width: 400px; 
+            background: rgba(255, 255, 255, 0.07); 
+            backdrop-filter: blur(20px); 
+            padding: 30px; border-radius: 35px; border: 1px solid rgba(255, 255, 255, 0.15); 
+            text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        }
+        h1 { color: #ff6d00; font-size: 2.2rem; margin-bottom: 5px; letter-spacing: -1px; }
+        .status { color: #00e676; font-weight: bold; font-size: 0.8rem; margin-bottom: 20px; display: block; text-transform: uppercase; }
+        
+        #chat-box { 
+            background: rgba(0, 0, 0, 0.4); 
+            border-radius: 20px; padding: 20px; 
+            height: 300px; overflow-y: auto; 
+            text-align: left; font-size: 1rem; line-height: 1.5; border: 1px solid #444;
+            margin-bottom: 20px; color: #fff; scroll-behavior: smooth;
+        }
+        
+        .user-msg { color: #ffab40; font-weight: bold; margin-top: 10px; text-align: right; }
+        .coach-msg { color: #eee; margin-bottom: 10px; border-left: 3px solid #ff6d00; padding-left: 10px; background: rgba(255, 109, 0, 0.05); padding: 8px; border-radius: 0 10px 10px 0; }
+
+        input { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #222; color: white; font-size: 1rem; box-sizing: border-box;
+            outline: 2px solid #ff6d00; margin-bottom: 10px;
+        }
+        
+        .btn-main { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #ff6d00; color: white; font-weight: bold; font-size: 1.1rem; 
+            cursor: pointer; transition: 0.2s; margin-bottom: 10px;
+        }
+        .btn-tip { 
+            width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #ff6d00; 
+            background: transparent; color: #ff6d00; font-weight: bold; font-size: 0.9rem; 
+            cursor: pointer; transition: 0.2s;
+        }
+        button:hover { transform: scale(1.02); opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Coach AI: Hoops</h1>
+        <span class="status">● 2026 BASKETBALL ENCYCLOPEDIA LOADED</span>
+
+        <div id="chat-box">
+            <div class="coach-msg">Coach: "Ready to hit the court? Ask me about shooting, defense, or drills!"</div>
+        </div>
+
+        <input type="text" id="userInput" placeholder="Ask: Layup, B.E.E.F, Defense..." onkeypress="if(event.key === 'Enter') getAdvice()">
+        <button class="btn-main" onclick="getAdvice()">ASK COACH</button>
+        <button class="btn-tip" onclick="tipOfTheDay()">✨ HOOPS TIP</button>
+    </div>
+
+    <script>
+        const coachAdvice = {
+            // --- OFFENSE ---
+            "layup": "Aim for the top corner of the small square on the backboard. Jump off your inside foot and drive the outside knee up high!",
+            "shooting": "Remember B.E.E.F: Balance, Eyes on target, Elbow in, Follow through. Snap your wrist like reaching into a cookie jar!",
+            "dribbling": "Use your fingertips, not your palm. Keep your eyes up at the court, not down at the ball!",
+            "three pointer": "Power comes from your legs, not your arms. Follow through and hold your finish until the ball hits the rim.",
+            "triple threat": "Keep the ball at your hip. Be ready to shoot, pass, or drive in an instant.",
+
+            // --- DEFENSE ---
+            "defense": "Stay low in a wide stance. Slide your feet—never cross them—and keep your hands active to disrupt passes.",
+            "rebound": "Box out! Find your player, make contact with your back, and jump with two hands to secure the ball.",
+            "stealing": "Don't reach! Wait for the offensive player to expose the ball, then poke it away cleanly without body contact.",
+
+            // --- WARMUPS & DRILLS ---
+            "warmups": "Start with 2 laps, high knees, and defensive slides. Do 5 minutes of Mikan drills to warm up your touch around the rim.",
+            "stretching": "Focus on your calves, hamstrings, and shoulders. Basketball is hard on the joints!",
+
+            // --- GREETINGS ---
+            "hello": "Ready for tip-off! What skill are we working on today?",
+            "thanks": "You got it! Keep grinding. Nothing but net! 🏀"
+        };
+
+        const tips = [
+            "TIP: Always follow through on your shot—leave the 'goose neck' up!",
+            "MOTIVATION: Defense wins championships. Stay low and stay hungry!",
+            "TIP: Communication is key. Call out screens and help-side defense!",
+            "MOTIVATION: You miss 100% of the shots you don't take!",
+            "TIP: Squat deep on your free throws to get consistent power."
+        ];
+
+        function getAdvice() {
+            const input = document.getElementById('userInput').value.toLowerCase();
+            const chat = document.getElementById('chat-box');
+            if(!input) return;
+
+            let response = "I don't have that play in my book yet. Try 'Shooting', 'Layup', or 'Defense'.";
+            
+            for (let move in coachAdvice) {
+                if (input.includes(move)) {
+                    response = coachAdvice[move];
+                    break;
+                }
+            }
+
+            chat.innerHTML += `<div class="user-msg">You: ${input}</div>`;
+            chat.innerHTML += `<div class="coach-msg">Coach: ${response}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+            document.getElementById('userInput').value = "";
+        }
+
+        function tipOfTheDay() {
+            const chat = document.getElementById('chat-box');
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            chat.innerHTML += `<div class="coach-msg" style="border-left-color: #00e676; background: rgba(0, 230, 118, 0.05);"><b>Tip of the Day:</b> ${randomTip}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>

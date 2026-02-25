@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ultimate AI Sports Coach | Cheerleading</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a1a 100%); 
+            color: white; 
+            margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; 
+        }
+        .app-container { 
+            width: 92%; max-width: 400px; 
+            background: rgba(255, 255, 255, 0.07); 
+            backdrop-filter: blur(20px); 
+            padding: 30px; border-radius: 35px; border: 1px solid rgba(255, 255, 255, 0.15); 
+            text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        }
+        h1 { color: #ff4081; font-size: 2.2rem; margin-bottom: 5px; letter-spacing: -1px; }
+        .status { color: #00e676; font-weight: bold; font-size: 0.8rem; margin-bottom: 20px; display: block; text-transform: uppercase; }
+        
+        #chat-box { 
+            background: rgba(0, 0, 0, 0.4); 
+            border-radius: 20px; padding: 20px; 
+            height: 300px; overflow-y: auto; 
+            text-align: left; font-size: 1rem; line-height: 1.5; border: 1px solid #444;
+            margin-bottom: 20px; color: #fff; scroll-behavior: smooth;
+        }
+        
+        .user-msg { color: #ff80ab; font-weight: bold; margin-top: 10px; text-align: right; }
+        .coach-msg { color: #eee; margin-bottom: 10px; border-left: 3px solid #ff4081; padding-left: 10px; background: rgba(255, 64, 129, 0.05); padding: 8px; border-radius: 0 10px 10px 0; }
+
+        input { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #222; color: white; font-size: 1rem; box-sizing: border-box;
+            outline: 2px solid #ff4081; margin-bottom: 10px;
+        }
+        
+        .btn-main { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #ff4081; color: white; font-weight: bold; font-size: 1.1rem; 
+            cursor: pointer; transition: 0.2s; margin-bottom: 10px;
+        }
+        .btn-tip { 
+            width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #ff4081; 
+            background: transparent; color: #ff4081; font-weight: bold; font-size: 0.9rem; 
+            cursor: pointer; transition: 0.2s;
+        }
+        button:hover { transform: scale(1.02); opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Ultimate AI Sports Coach</h1>
+        <span class="status">● 2026 MASTER ENCYCLOPEDIA LOADED</span>
+
+        <div id="chat-box">
+            <div class="coach-msg">Coach: "Ready for practice? Ask me about any motion, jump, or tumble!"</div>
+        </div>
+
+        <input type="text" id="userInput" placeholder="Ask: Toe Touch, Pyramid, Backflip..." onkeypress="if(event.key === 'Enter') getAdvice()">
+        <button class="btn-main" onclick="getAdvice()">ASK COACH</button>
+        <button class="btn-tip" onclick="tipOfTheDay()">✨ TIP OF THE DAY</button>
+    </div>
+
+    <script>
+        const coachAdvice = {
+            // ... (keep your existing motions/jumps/tumbling) ...
+
+            // --- STUNTS & PYRAMIDS ---
+            "lib": "Standing leg locked! Pull your other leg up so your foot is right at your knee (not resting on it). Squeeze that core!",
+            "pike": "Keep your legs glued together and shoot them straight out in front of you. Chest up, don't lean back!",
+            "split": "Flexibility is key! Pull your legs into a full split in the air. Bases, stay steady through the shift in weight!",
+            "heel stretch": "Kick your leg up and grab your heel! Keep your standing leg 'bottomed out' (locked) and your chest tall.",
+            "arabesque": "Lift that back leg to a 90-degree angle while keeping your hips square to the front. Sharp 'T' motion with the arms!",
+            "prep extension": "Bases: Use your legs to drive the flyer from chest level all the way to locked arms above your head!",
+            "human pyramid": "Precision is key! Every stunt must be solid before connecting. Use interlocking grips for stability.",
+            "cradle": "Flyer: Stay tight until the highest point. Bases: Reach high, absorb with your knees, and protect the flyer!",
+
+            // --- TUMBLING ---
+            "front walkover": "Lunge deep, arms by ears. Push through your shoulders and keep your head back until your feet hit the floor!",
+            
+            // --- STUNT LEVELS ---
+            "prep": "Bases hold the flyer’s feet at chin level. Keep your elbows tucked in and eyes on the flyer's hips. Flyer: Stay tight like a pencil!",
+            "extension": "A full-high stunt! Bases, explode from your legs and lock your arms out completely above your head. Flyer: Squeeze your glutes and core to stay stable.",
+
+            // --- WARMUPS ---
+            "warmups": "Start with 5 mins of cardio (high knees/butt kicks), then move to wrist rolls, ankle circles, and deep lunges.",
+            "stretching": "Don't forget your left, right, and center splits! Hold for 45 seconds to prep for those libs and stretches.",
+
+            // --- PERFORMANCE & SPIRIT ---
+            "clean": "Snap your arms to your sides with no gap. Squeeze everything! This is the most important move.",
+            "spirit": "Facials are everything! Big smiles, high energy, and keep your chin up for the judges.",
+            "voice": "Project from your diaphragm, not your throat. Deep and loud cheers, not high-pitched!",
+            "motivation": "You didn't come this far to only come this far. Hit this routine like a champion!",
+            
+            // --- GREETINGS ---
+            "hello": "Hello! I'm ready to work. What move are we perfecting today?",
+            "thanks": "You got it! Now go hit that routine with 100% energy! 🎀"
+        };
+
+
+        const tips = [
+            "TIP: Point your toes in every jump—it makes your lines look 10x better!",
+            "MOTIVATION: Champions train, losers complain. Give it 100% today!",
+            "TIP: Squeeze your core during stunts. A tight flyer is a light flyer!",
+            "MOTIVATION: Don't practice until you get it right. Practice until you can't get it wrong!",
+            "TIP: Sharpness over speed. Make every motion snap into place.",
+            "MOTIVATION: Hard work beats talent when talent doesn't work hard!",
+            "TIP: Always 'Clean' after every move. It shows the judges you are disciplined."
+        ];
+
+        function getAdvice() {
+            const input = document.getElementById('userInput').value.toLowerCase();
+            const chat = document.getElementById('chat-box');
+            if(!input) return;
+
+            let response = "I'm not sure about that move yet, but keep it tight! Try 'High V', 'Backflip', or 'Pyramid'.";
+            
+            // Search for keywords in the input
+            for (let move in coachAdvice) {
+                if (input.includes(move)) {
+                    response = coachAdvice[move];
+                    break;
+                }
+            }
+
+            chat.innerHTML += `<div class="user-msg">You: ${input}</div>`;
+            chat.innerHTML += `<div class="coach-msg">Coach: ${response}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+            document.getElementById('userInput').value = "";
+        }
+
+        function tipOfTheDay() {
+            const chat = document.getElementById('chat-box');
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            chat.innerHTML += `<div class="coach-msg" style="border-left-color: #00e676; background: rgba(0, 230, 118, 0.05);"><b>Tip of the Day:</b> ${randomTip}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+
+

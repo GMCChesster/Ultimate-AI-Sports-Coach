@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pro Sports AI Dashboard</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); 
+            color: white; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; 
+        }
+        .home-container { 
+            width: 92%; max-width: 400px; 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(30px); 
+            padding: 40px 20px; border-radius: 45px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 30px; letter-spacing: -1px; color: #fff; }
+        
+        .app-grid { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; 
+            justify-items: center; 
+        }
+        
+        .app-item { text-decoration: none; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        
+        .app-icon { 
+            width: 70px; height: 70px; 
+            border-radius: 18px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 2rem; margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .app-item:hover .app-icon { transform: scale(1.1); background: rgba(255, 255, 255, 0.2); }
+        .app-label { font-size: 0.75rem; font-weight: 500; color: #bbb; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Specific Icon Colors */
+        .cheer { border-bottom: 3px solid #ff4081; }
+        .gym { border-bottom: 3px solid #40c4ff; }
+        .ball { border-bottom: 3px solid #ff6d00; }
+        .volley { border-bottom: 3px solid #bb86fc; }
+        .soccer { border-bottom: 3px solid #00e676; }
+        .soft { border-bottom: 3px solid #ccff00; }
+        .tennis { border-bottom: 3px solid #c0ff00; }
+    </style>
+</head>
+<body>
+
+    <div class="home-container">
+        <h1>Ultimate Sports AI Coach</h1>
+        <div class="app-grid">
+            <a href="cheer.html" class="app-item">
+                <div class="app-icon cheer">📣</div>
+                <span class="app-label">Cheer</span>
+            </a>
+            <a href="gymnastics.html" class="app-item">
+                <div class="app-icon gym">🤸</div>
+                <span class="app-label">Gym</span>
+            </a>
+            <a href="basketball.html" class="app-item">
+                <div class="app-icon ball">🏀</div>
+                <span class="app-label">Hoops</span>
+            </a>
+            <a href="volleyball.html" class="app-item">
+                <div class="app-icon volley">🏐</div>
+                <span class="app-label">Volley</span>
+            </a>
+            <a href="soccer.html" class="app-item">
+                <div class="app-icon soccer">⚽</div>
+                <span class="app-label">Soccer</span>
+            </a>
+            <a href="softball.html" class="app-item">
+                <div class="app-icon soft">🥎</div>
+                <span class="app-label">Softball</span>
+            </a>
+            <a href="tennis.html" class="app-item">
+                <div class="app-icon tennis">🎾</div>
+                <span class="app-label">Tennis</span>
+            <a href="mailto:your-email@example.com?subject=New Coach AI Tip&body=Sport:%0AStore/Skill:%0AAdvice:" class="app-item">
+                <div class="app-icon" style="border-bottom: 3px solid #fff;">💡</div>
+                <span class="app-label">Submit Tip</span>
+            </a>
+
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ultimate Sports AI Coach | Soccer</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a2d0a 100%); /* Pitch Green tint */
+            color: white; 
+            margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; 
+        }
+        .app-container { 
+            width: 92%; max-width: 400px; 
+            background: rgba(255, 255, 255, 0.07); 
+            backdrop-filter: blur(20px); 
+            padding: 30px; border-radius: 35px; border: 1px solid rgba(255, 255, 255, 0.15); 
+            text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        }
+        h1 { color: #00e676; font-size: 2.2rem; margin-bottom: 5px; letter-spacing: -1px; }
+        .status { color: #00e676; font-weight: bold; font-size: 0.8rem; margin-bottom: 20px; display: block; text-transform: uppercase; }
+        
+        #chat-box { 
+            background: rgba(0, 0, 0, 0.4); 
+            border-radius: 20px; padding: 20px; 
+            height: 300px; overflow-y: auto; 
+            text-align: left; font-size: 1rem; line-height: 1.5; border: 1px solid #444;
+            margin-bottom: 20px; color: #fff; scroll-behavior: smooth;
+        }
+        
+        .user-msg { color: #b9f6ca; font-weight: bold; margin-top: 10px; text-align: right; }
+        .coach-msg { color: #eee; margin-bottom: 10px; border-left: 3px solid #00e676; padding-left: 10px; background: rgba(0, 230, 118, 0.05); padding: 8px; border-radius: 0 10px 10px 0; }
+
+        input { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #222; color: white; font-size: 1rem; box-sizing: border-box;
+            outline: 2px solid #00e676; margin-bottom: 10px;
+        }
+        
+        .btn-main { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #00e676; color: #1a1a1a; font-weight: bold; font-size: 1.1rem; 
+            cursor: pointer; transition: 0.2s; margin-bottom: 10px;
+        }
+        .btn-tip { 
+            width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #00e676; 
+            background: transparent; color: #00e676; font-weight: bold; font-size: 0.9rem; 
+            cursor: pointer; transition: 0.2s;
+        }
+        button:hover { transform: scale(1.02); opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Coach AI: Soccer</h1>
+        <span class="status">● 2026 SOCCER ENCYCLOPEDIA LOADED</span>
+
+        <div id="chat-box">
+            <div class="coach-msg">Coach: "Ready to take the pitch? Ask me about dribbling, shooting, or defense!"</div>
+        </div>
+
+        <input type="text" id="userInput" placeholder="Ask: Dribble, Nutmeg, Header..." onkeypress="if(event.key === 'Enter') getAdvice()">
+        <button class="btn-main" onclick="getAdvice()">ASK COACH</button>
+        <button class="btn-tip" onclick="tipOfTheDay()">✨ PITCH TIP</button>
+    </div>
+
+    <script>
+        const coachAdvice = {
+            // --- BALL CONTROL & DRIBBLING ---
+            "dribble": "Keep the ball close to your feet by using small 'touches'. Keep your head up to see defenders and open teammates.",
+            "nutmeg": "Skillfully pass the ball through an opponent's legs. It's a great way to embarrass a defender and get past them!",
+            "juggling": "Use your feet, knees, and chest to keep the ball in the air. It's the best way to improve your touch and coordination!",
+            "maradona turn": "Roll the ball with one foot while spinning 360 degrees to evade a defender.",
+
+            // --- PASSING & TEAMWORK ---
+            "pass": "Use the inside of your foot for accuracy. 'The ball has no lungs'—let it do the running for you!",
+            "through ball": "A pass sent between defenders into space for a teammate to run onto.",
+            "cross": "A pass delivered from a wide area into the middle to create a scoring chance.",
+            "give and go": "Pass to a teammate and immediately run into space to receive the return pass.",
+
+            // --- SHOOTING & FINISHING ---
+            "shoot": "Strike the ball with your laces for power. Plant your non-kicking foot next to the ball and point it at the target.",
+            "header": "Use your forehead, not the top of your head. Keep your eyes open and lean into the contact.",
+            "bicycle kick": "An acrobatic move where you jump and kick the ball over your head while upside-down.",
+
+            // --- DEFENSE ---
+            "tackle": "Wait for the right moment when the attacker has a 'heavy touch'. Use your feet to win the ball cleanly without fouling.",
+            "jockeying": "Slow down the attacker by staying in front of them without committing to a tackle. Force them toward the sideline.",
+            "marking": "Stay close to your opponent to prevent them from receiving the ball or moving toward the goal.",
+
+            // --- WARMUPS ---
+            "warmups": "Start with dynamic stretches, backpedaling drills, and short sprints to wake up your muscles.",
+
+            // --- GREETINGS ---
+            "hello": "Ready for kickoff! What part of your game are we improving today?",
+            "thanks": "You got it! Train hard and stay hungry for the goal! ⚽"
+        };
+
+        const tips = [
+            "TIP: Check your shoulder before receiving a pass to know where the space is!",
+            "MOTIVATION: Hard work beats talent when talent doesn't work hard!",
+            "TIP: Use BOTH feet—it makes you twice as dangerous on the field.",
+            "MOTIVATION: Don't react to the play. Control it!",
+            "TIP: A 'clean sheet' is the best reward for a solid defense!"
+        ];
+
+        function getAdvice() {
+            const input = document.getElementById('userInput').value.toLowerCase();
+            const chat = document.getElementById('chat-box');
+            if(!input) return;
+
+            let response = "I don't have that play in my book yet. Try 'Dribble', 'Pass', or 'Shoot'.";
+            
+            for (let move in coachAdvice) {
+                if (input.includes(move)) {
+                    response = coachAdvice[move];
+                    break;
+                }
+            }
+
+            chat.innerHTML += `<div class="user-msg">You: ${input}</div>`;
+            chat.innerHTML += `<div class="coach-msg">Coach: ${response}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+            document.getElementById('userInput').value = "";
+        }
+
+        function tipOfTheDay() {
+            const chat = document.getElementById('chat-box');
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            chat.innerHTML += `<div class="coach-msg" style="border-left-color: #00e676; background: rgba(0, 230, 118, 0.05);"><b>Tip of the Day:</b> ${randomTip}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>

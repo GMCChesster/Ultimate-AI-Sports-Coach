@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ultimate Sports AI Coach | Softball</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d0a 100%); /* Softball Yellow tint */
+            color: white; 
+            margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; 
+        }
+        .app-container { 
+            width: 92%; max-width: 400px; 
+            background: rgba(255, 255, 255, 0.07); 
+            backdrop-filter: blur(20px); 
+            padding: 30px; border-radius: 35px; border: 1px solid rgba(255, 255, 255, 0.15); 
+            text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        }
+        h1 { color: #ccff00; font-size: 2.2rem; margin-bottom: 5px; letter-spacing: -1px; }
+        .status { color: #00e676; font-weight: bold; font-size: 0.8rem; margin-bottom: 20px; display: block; text-transform: uppercase; }
+        
+        #chat-box { 
+            background: rgba(0, 0, 0, 0.4); 
+            border-radius: 20px; padding: 20px; 
+            height: 300px; overflow-y: auto; 
+            text-align: left; font-size: 1rem; line-height: 1.5; border: 1px solid #444;
+            margin-bottom: 20px; color: #fff; scroll-behavior: smooth;
+        }
+        
+        .user-msg { color: #e6ff80; font-weight: bold; margin-top: 10px; text-align: right; }
+        .coach-msg { color: #eee; margin-bottom: 10px; border-left: 3px solid #ccff00; padding-left: 10px; background: rgba(204, 255, 0, 0.05); padding: 8px; border-radius: 0 10px 10px 0; }
+
+        input { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #222; color: white; font-size: 1rem; box-sizing: border-box;
+            outline: 2px solid #ccff00; margin-bottom: 10px;
+        }
+        
+        .btn-main { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #ccff00; color: #1a1a1a; font-weight: bold; font-size: 1.1rem; 
+            cursor: pointer; transition: 0.2s; margin-bottom: 10px;
+        }
+        .btn-tip { 
+            width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #ccff00; 
+            background: transparent; color: #ccff00; font-weight: bold; font-size: 0.9rem; 
+            cursor: pointer; transition: 0.2s;
+        }
+        button:hover { transform: scale(1.02); opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Coach AI: Softie</h1>
+        <span class="status">● 2026 SOFTBALL ENCYCLOPEDIA LOADED</span>
+
+        <div id="chat-box">
+            <div class="coach-msg">Coach: "Batter up! Ask me about pitching, hitting, or fielding drills."</div>
+        </div>
+
+        <input type="text" id="userInput" placeholder="Ask: Windmill, Slap Hit, Bunt..." onkeypress="if(event.key === 'Enter') getAdvice()">
+        <button class="btn-main" onclick="getAdvice()">ASK COACH</button>
+        <button class="btn-tip" onclick="tipOfTheDay()">✨ DIAMOND TIP</button>
+    </div>
+
+    <script>
+        const coachAdvice = {
+            // --- HITTING & OFFENSE ---
+            "slap hit": "Keep your weight back until the last second, then move forward as you contact the ball. Aim for the holes in the infield!",
+            "bunt": "Square your shoulders to the pitcher and 'catch' the ball with the bat. Use your top hand to guide the angle toward 1st or 3rd base.",
+            "hitting": "Keep your hands in a 'stacked' position and look the ball all the way into the bat. Drive your hips through the zone for power.",
+            "base running": "Always round 1st base toward the outside. Look for the third-base coach's signs as you approach the bag!",
+
+            // --- PITCHING & CATCHING ---
+            "windmill": "The power comes from the 'K' position! Explode off the rubber and snap your wrist at your hip for maximum speed.",
+            "changeup": "Maintain your same arm speed as a fastball but change your grip to take the velocity off. Keep the hitter off balance!",
+            "blocking": "Catchers: Drop to your knees and tuck your chin. Let the ball hit your chest protector and stay in front of you.",
+            "framing": "Hold the pitch for an extra second at the edge of the zone to help the umpire see it as a strike.",
+
+            // --- FIELDING ---
+            "ground ball": "Stay low and keep your 'alligator hands' ready. Field the ball in front of your body and secure it quickly for the throw.",
+            "fly ball": "Get under the ball early and catch it with two hands near your throwing shoulder to make a fast transition.",
+            "relay": "Turn toward your glove side when receiving the ball from the outfield to make the fastest possible throw to the plate.",
+
+            // --- WARMUPS ---
+            "warmups": "Do arm circles, lunges, and 'wall ball' to get your eyes and hands ready. Don't forget to stretch those hamstrings!",
+
+            // --- GREETINGS ---
+            "hello": "Ready for the first pitch! What are we working on today?",
+            "thanks": "You bet! Keep your eye on the ball and play hard! 🥎"
+        };
+
+        const tips = [
+            "TIP: Squeeze the ball with two hands whenever possible—safety first!",
+            "MOTIVATION: Practice like you're playing in the championship game!",
+            "TIP: Always communicate! Shout 'BALL' if you're taking a fly ball.",
+            "MOTIVATION: Great teams are built on great defense. Stay focused!",
+            "TIP: A tight grip on the bat is for power; a loose grip is for contact."
+        ];
+
+        function getAdvice() {
+            const input = document.getElementById('userInput').value.toLowerCase();
+            const chat = document.getElementById('chat-box');
+            if(!input) return;
+
+            let response = "I don't have that play in my book yet. Try 'Windmill', 'Bunt', or 'Fielding'.";
+            
+            for (let move in coachAdvice) {
+                if (input.includes(move)) {
+                    response = coachAdvice[move];
+                    break;
+                }
+            }
+
+            chat.innerHTML += `<div class="user-msg">You: ${input}</div>`;
+            chat.innerHTML += `<div class="coach-msg">Coach: ${response}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+            document.getElementById('userInput').value = "";
+        }
+
+        function tipOfTheDay() {
+            const chat = document.getElementById('chat-box');
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            chat.innerHTML += `<div class="coach-msg" style="border-left-color: #00e676; background: rgba(0, 230, 118, 0.05);"><b>Tip of the Day:</b> ${randomTip}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>

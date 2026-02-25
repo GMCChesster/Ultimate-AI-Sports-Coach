@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ultimate Sports AI Coach | Volleyball</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a0a3d 100%); /* Volleyball Purple tint */
+            color: white; 
+            margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; 
+        }
+        .app-container { 
+            width: 92%; max-width: 400px; 
+            background: rgba(255, 255, 255, 0.07); 
+            backdrop-filter: blur(20px); 
+            padding: 30px; border-radius: 35px; border: 1px solid rgba(255, 255, 255, 0.15); 
+            text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        }
+        h1 { color: #bb86fc; font-size: 2.2rem; margin-bottom: 5px; letter-spacing: -1px; }
+        .status { color: #00e676; font-weight: bold; font-size: 0.8rem; margin-bottom: 20px; display: block; text-transform: uppercase; }
+        
+        #chat-box { 
+            background: rgba(0, 0, 0, 0.4); 
+            border-radius: 20px; padding: 20px; 
+            height: 300px; overflow-y: auto; 
+            text-align: left; font-size: 1rem; line-height: 1.5; border: 1px solid #444;
+            margin-bottom: 20px; color: #fff; scroll-behavior: smooth;
+        }
+        
+        .user-msg { color: #e1bee7; font-weight: bold; margin-top: 10px; text-align: right; }
+        .coach-msg { color: #eee; margin-bottom: 10px; border-left: 3px solid #bb86fc; padding-left: 10px; background: rgba(187, 134, 252, 0.05); padding: 8px; border-radius: 0 10px 10px 0; }
+
+        input { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #222; color: white; font-size: 1rem; box-sizing: border-box;
+            outline: 2px solid #bb86fc; margin-bottom: 10px;
+        }
+        
+        .btn-main { 
+            width: 100%; padding: 15px; border-radius: 15px; border: none; 
+            background: #bb86fc; color: #1a1a1a; font-weight: bold; font-size: 1.1rem; 
+            cursor: pointer; transition: 0.2s; margin-bottom: 10px;
+        }
+        .btn-tip { 
+            width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #bb86fc; 
+            background: transparent; color: #bb86fc; font-weight: bold; font-size: 0.9rem; 
+            cursor: pointer; transition: 0.2s;
+        }
+        button:hover { transform: scale(1.02); opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Coach AI: Volley</h1>
+        <span class="status">● 2026 VOLLEYBALL ENCYCLOPEDIA LOADED</span>
+
+        <div id="chat-box">
+            <div class="coach-msg">Coach: "Ready for the match? Ask me about serving, passing, or rotations!"</div>
+        </div>
+
+        <input type="text" id="userInput" placeholder="Ask: Serve, Bump, Spike..." onkeypress="if(event.key === 'Enter') getAdvice()">
+        <button class="btn-main" onclick="getAdvice()">ASK COACH</button>
+        <button class="btn-tip" onclick="tipOfTheDay()">✨ VOLLEY TIP</button>
+    </div>
+
+    <script>
+        const coachAdvice = {
+            // --- SERVING ---
+            "serve": "Toss the ball consistently in front of your hitting shoulder. Contact with a flat, firm palm and follow through to your target!",
+            "overhand serve": "Keep your hitting elbow high and back. Lead with your palm and 'pop' the ball at its highest point.",
+            "underhand serve": "Hold the ball at waist level. Step forward with your opposite foot and swing your fist like a pendulum.",
+
+            // --- PASSING & SETTING ---
+            "bump": "Don't swing your arms! Create a flat 'platform' with your forearms and use your legs to push the ball up and forward.",
+            "set": "Form a diamond window with your hands above your forehead. Use your fingertips to 'flick' the ball using your wrists, not your palms.",
+            "pass": "Face your target before contact. Keep your platform steady and move your feet to get behind the ball.",
+
+            // --- ATTACKING & BLOCKING ---
+            "spike": "Use a 3-step or 4-step approach (Left-Right-Left for righties). Reach high and snap your wrist over the top of the ball to create topspin.",
+            "block": "Time your jump with the hitter. Reach over the net ('penetrate') with stiff fingers to direct the ball back down.",
+            "tip": "Wait until the last second to change from a swing to a gentle push. Aim for the open holes in the defense!",
+
+            // --- STRATEGY ---
+            "rotation": "Always know your position! Remember your 'opposite' player to stay in the correct alignment on the court.",
+            "libero": "You are the defensive specialist! Your job is to pass every serve and dig every spike that comes your way.",
+
+            // --- WARMUPS ---
+            "warmups": "Start with dynamic stretches, arm circles, and 'pepper' with a partner to wake up your hands and feet.",
+
+            // --- GREETINGS ---
+            "hello": "Game on! What skill are we perfecting today?",
+            "thanks": "No problem! Go out there and call every ball! 🏐"
+        };
+
+        const tips = [
+            "TIP: Call 'MINE' or 'I GOT IT' loudly on every play to avoid collisions!",
+            "MOTIVATION: A great hit starts with a great pass. Focus on the basics first!",
+            "TIP: Stay on your toes (ready position) so you can react to the ball instantly.",
+            "MOTIVATION: Don't let the ball hit the floor without a teammate diving for it!",
+            "TIP: Watch the server's hand—it tells you exactly where the ball is going."
+        ];
+
+        function getAdvice() {
+            const input = document.getElementById('userInput').value.toLowerCase();
+            const chat = document.getElementById('chat-box');
+            if(!input) return;
+
+            let response = "I don't have that play in my book yet. Try 'Serve', 'Bump', or 'Spike'.";
+            
+            for (let move in coachAdvice) {
+                if (input.includes(move)) {
+                    response = coachAdvice[move];
+                    break;
+                }
+            }
+
+            chat.innerHTML += `<div class="user-msg">You: ${input}</div>`;
+            chat.innerHTML += `<div class="coach-msg">Coach: ${response}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+            document.getElementById('userInput').value = "";
+        }
+
+        function tipOfTheDay() {
+            const chat = document.getElementById('chat-box');
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            chat.innerHTML += `<div class="coach-msg" style="border-left-color: #00e676; background: rgba(0, 230, 118, 0.05);"><b>Tip of the Day:</b> ${randomTip}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>
