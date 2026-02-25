@@ -1,29 +1,30 @@
-# 🎀 Ali's AI Cheer Coach 🎀
+# 🏅 Pro Sports AI: Master Encyclopedia (2026)
 
-An AI-powered "Pocket Coach" designed to give instant cheerleading advice, tumbling tips, and daily motivation. No cameras, no lag—just pro coaching at your fingertips.
+A high-performance, **completely free** collection of interactive coaching "apps" for athletes and coaches. Each sport is designed as a standalone "phone" interface providing professional advice, technique tips, and daily motivation.
 
-## ✨ Features
-- **Master Encyclopedia:** Instant tips for over 20+ moves including High V, Toe Touches, Backflips, and Human Pyramids.
-- **Tip of the Day:** Get a random pro-tip or motivational quote to hit your routine with 100% energy.
-- **Mobile Optimized:** Designed to be "Installed" on your phone home screen for quick access at the gym or on the mat.
-- **Zero-Latency:** Runs entirely in the browser using lightweight JavaScript.
+## 📱 Live Demo
+Check out the dashboard here: 
+👉 [gmcchesster.github.io/Ultimate-AI-Sports-Coach](https://gmcchesster.github.io)
 
-## 🚀 How to Use
-1. Visit the live site: https://gmcchesster.github.io/Ali-Cheer-Coach
-2. Type any move (e.g., "Back Handspring" or "Herkie") into the chat.
-3. Hit the **Tip of the Day** button if you need a quick boost.
+## 🚀 Featured Sports Apps
+This repository contains specialized AI coaching logic for:
+*   📣 **Cheerleading** (Stunts, Jumps, Tumbling)
+*   🤸 **Gymnastics** (Floor, Beam, Bars)
+*   🏀 **Basketball** (B.E.E.F Shooting, Defense, Layups)
+*   🏐 **Volleyball** (Serving, Passing, Spiking)
+*   ⚽ **Soccer** (Dribbling, Shooting, Footwork)
+*   🥎 **Softball** (Windmill Pitching, Slap Hitting)
+*   🎾 **Tennis** (Serves, Groundstrokes, Strategy)
 
-## 📖 Move List
-The coach is trained on:
-- **Motions:** High V, Low V, T-Motion, Touchdown, K-Motion, etc.
-- **Jumps:** Toe Touch, Pike, Herkie, Hurdler.
-- **Tumbling:** Backflip, Frontflip, Cartwheel, Back Handspring.
-- **Stunts:** Liberty, Cradle, Human Pyramid.
-- **Performance:** Clean, Spirit, Voice, Motivation.
+## 🛠️ How It Works
+1.  **Dashboard**: Start at `index.html` to choose your sport.
+2.  **Encyclopedia**: Type any move (e.g., "Backflip" or "Layup") into the coach's chat.
+3.  **Tips**: Use the "Tip of the Day" button for instant professional drills.
 
-## 📱 Install as an App
-- **iPhone:** Open in Safari -> Tap 'Share' -> **'Add to Home Screen'**
-- **Android:** Open in Chrome -> Tap 'Three Dots' -> **'Install App'**
+## 🌈 Project Philosophy
+*   **100% Free**: No subscriptions, no paywalls, no "App Store" unlocks.
+*   **Offline First**: Designed to load fast and work during practice sessions.
+*   **Glassmorphism UI**: A modern, dark-mode iOS-style interface for easy reading on the field or in the gym.
 
 ---
-*Created with 💖 for Ali. Hit those routines!*
+*Built with ❤️ for the sports community. Keep training hard!*
