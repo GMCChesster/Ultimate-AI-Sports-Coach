@@ -4,7 +4,7 @@ A high-performance, **completely free** collection of interactive coaching "apps
 
 ## 📱 Live Demo
 Check out the dashboard here: 
-👉 [gmcchesster.github.io/Ultimate-AI-Sports-Coach](https://gmcchesster.github.io)
+👉 [Click Here](https://gmcchesster.github.io/Ultimate-AI-Sports-Coach/)
 
 ## 🚀 Featured Sports Apps
 This repository contains specialized AI coaching logic for:
