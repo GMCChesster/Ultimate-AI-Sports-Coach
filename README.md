@@ -17,7 +17,7 @@ This repository contains specialized AI coaching logic for:
 *   🎾 **Tennis** (Serves, Groundstrokes, Strategy)
 
 ## 🛠️ How It Works
-1.  **Dashboard**: Start at `index.html` to choose your sport.
+1.  **Dashboard**: Start at the home page to choose your sport.
 2.  **Encyclopedia**: Type any move (e.g., "Backflip" or "Layup") into the coach's chat.
 3.  **Tips**: Use the "Tip of the Day" button for instant professional drills.
 
